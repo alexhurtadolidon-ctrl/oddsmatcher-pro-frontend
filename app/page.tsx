@@ -41,97 +41,92 @@ export default function Home() {
     }
 
     fetchArbitrages()
-    // Refrescar cada 5 minutos
     const interval = setInterval(fetchArbitrages, 5 * 60 * 1000)
-    
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="container py-12">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold text-white mb-2">
+    <main style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #0f172a, #1e293b)', padding: '3rem 0' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.25rem' }}>
+        <div style={{ marginBottom: '3rem' }}>
+          <h1 style={{ fontSize: '2.25rem', fontWeight: 'bold', color: '#fff', marginBottom: '0.5rem' }}>
             🎯 Oddsmatcher Pro
           </h1>
-          <p className="text-xl text-slate-400">
+          <p style={{ fontSize: '1.25rem', color: '#94a3b8' }}>
             Comparador de cuotas en tiempo real - 30 casas españolas
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-            <div className="text-slate-400 text-sm mb-2">Total Arbitrajes</div>
-            <div className="text-3xl font-bold text-white">{arbitrages.length}</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+          <div style={{ background: '#1e293b', borderRadius: '0.5rem', padding: '1.5rem', border: '1px solid #334155' }}>
+            <div style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Total Arbitrajes</div>
+            <div style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#fff' }}>{arbitrages.length}</div>
           </div>
-          <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-            <div className="text-slate-400 text-sm mb-2">Ganancia Promedio</div>
-            <div className="text-3xl font-bold text-green-500">
+          <div style={{ background: '#1e293b', borderRadius: '0.5rem', padding: '1.5rem', border: '1px solid #334155' }}>
+            <div style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Ganancia Promedio</div>
+            <div style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#22c55e' }}>
               €{(arbitrages.reduce((sum, a) => sum + a.profit, 0) / (arbitrages.length || 1)).toFixed(2)}
             </div>
           </div>
-          <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-            <div className="text-slate-400 text-sm mb-2">Rating Promedio</div>
-            <div className="text-3xl font-bold text-blue-500">
+          <div style={{ background: '#1e293b', borderRadius: '0.5rem', padding: '1.5rem', border: '1px solid #334155' }}>
+            <div style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Rating Promedio</div>
+            <div style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#3b82f6' }}>
               {(arbitrages.reduce((sum, a) => sum + a.rating, 0) / (arbitrages.length || 1)).toFixed(1)}%
             </div>
           </div>
         </div>
 
-        {/* Loading */}
         {loading && (
-          <div className="bg-slate-800 rounded-lg p-8 text-center border border-slate-700">
-            <div className="inline-block animate-spin">
-              <div className="w-8 h-8 border-4 border-slate-600 border-t-blue-500 rounded-full"></div>
-            </div>
-            <p className="text-slate-300 mt-4">Cargando arbitrajes...</p>
+          <div style={{ background: '#1e293b', borderRadius: '0.5rem', padding: '2rem', textAlign: 'center', border: '1px solid #334155' }}>
+            <p style={{ color: '#cbd5e1' }}>Cargando arbitrajes...</p>
           </div>
         )}
 
-        {/* Error */}
         {error && (
-          <div className="bg-red-900/20 border border-red-700 rounded-lg p-6 text-red-400">
+          <div style={{ background: 'rgba(127, 29, 29, 0.2)', border: '1px solid #b91c1c', borderRadius: '0.5rem', padding: '1.5rem', color: '#f87171' }}>
             <p>{error}</p>
           </div>
         )}
 
-        {/* Table */}
         {!loading && !error && arbitrages.length > 0 && (
-          <div className="overflow-x-auto bg-slate-800 rounded-lg border border-slate-700">
-            <table className="w-full">
+          <div style={{ overflowX: 'auto', background: '#1e293b', borderRadius: '0.5rem', border: '1px solid #334155' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr className="border-b border-slate-700 bg-slate-900">
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-300">Evento</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-300">Back</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-300">Lay</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-300">Ganancia</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-300">Rating</th>
+                <tr style={{ borderBottom: '1px solid #334155', background: '#0f172a' }}>
+                  <th style={{ padding: '1rem 1.5rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#cbd5e1' }}>Evento</th>
+                  <th style={{ padding: '1rem 1.5rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#cbd5e1' }}>Back</th>
+                  <th style={{ padding: '1rem 1.5rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#cbd5e1' }}>Lay</th>
+                  <th style={{ padding: '1rem 1.5rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#cbd5e1' }}>Ganancia</th>
+                  <th style={{ padding: '1rem 1.5rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#cbd5e1' }}>Rating</th>
                 </tr>
               </thead>
               <tbody>
                 {arbitrages.map((arb) => (
-                  <tr key={arb.id} className="border-b border-slate-700 hover:bg-slate-700/50">
-                    <td className="px-6 py-4 text-sm text-white">
-                      <div className="font-semibold">{arb.homeTeam} vs {arb.awayTeam}</div>
-                      <div className="text-xs text-slate-400">{arb.kickoffTime}</div>
+                  <tr key={arb.id} style={{ borderBottom: '1px solid #334155' }}>
+                    <td style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#fff' }}>
+                      <div style={{ fontWeight: '600' }}>{arb.homeTeam} vs {arb.awayTeam}</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{arb.kickoffTime}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-slate-300">
-                      <div className="font-semibold">{arb.backBookmaker}</div>
-                      <div className="text-blue-400">{arb.backOdds.toFixed(2)}</div>
+                    <td style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#cbd5e1' }}>
+                      <div style={{ fontWeight: '600' }}>{arb.backBookmaker}</div>
+                      <div style={{ color: '#60a5fa' }}>{arb.backOdds.toFixed(2)}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-slate-300">
-                      <div className="font-semibold">{arb.layBookmaker}</div>
-                      <div className="text-red-400">{arb.layOdds.toFixed(2)}</div>
+                    <td style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#cbd5e1' }}>
+                      <div style={{ fontWeight: '600' }}>{arb.layBookmaker}</div>
+                      <div style={{ color: '#f87171' }}>{arb.layOdds.toFixed(2)}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-green-400 font-semibold">
+                    <td style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#4ade80', fontWeight: '600' }}>
                       €{arb.profit.toFixed(2)}
                     </td>
-                    <td className="px-6 py-4 text-sm">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        arb.rating >= 100 ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'
-                      }`}>
+                    <td style={{ padding: '1rem 1.5rem', fontSize: '0.875rem' }}>
+                      <span style={{
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '9999px',
+                        fontSize: '0.75rem',
+                        fontWeight: '600',
+                        background: arb.rating >= 100 ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)',
+                        color: arb.rating >= 100 ? '#86efac' : '#fca5a5'
+                      }}>
                         {arb.rating.toFixed(1)}%
                       </span>
                     </td>
@@ -142,10 +137,9 @@ export default function Home() {
           </div>
         )}
 
-        {/* Empty */}
         {!loading && !error && arbitrages.length === 0 && (
-          <div className="bg-slate-800 rounded-lg p-8 text-center border border-slate-700">
-            <p className="text-slate-400">No hay arbitrajes disponibles en este momento</p>
+          <div style={{ background: '#1e293b', borderRadius: '0.5rem', padding: '2rem', textAlign: 'center', border: '1px solid #334155' }}>
+            <p style={{ color: '#94a3b8' }}>No hay arbitrajes disponibles en este momento</p>
           </div>
         )}
       </div>
